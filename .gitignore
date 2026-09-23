@@ -41,14 +41,14 @@ Thumbs.db
 debug.log
 
 # Screenshots (keep prompts, discard images)
-screenshots/*.png
-screenshots/*.jpg
-screenshots/*.jpeg
+**/screenshots/*.png
+**/screenshots/*.jpg
+**/screenshots/*.jpeg
 
-# Archives
-*.zip
+# Temporary archives (explicit project archives under archives/ are tracked)
 *.tar.gz
 *.rar
+!archives/*.zip
 
 # Config with secrets
 *.secret.yaml
