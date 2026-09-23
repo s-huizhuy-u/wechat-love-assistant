@@ -1,4 +1,4 @@
-﻿# 一键同步到 GitHub
+# 一键同步到 GitHub
 # 用法: pwsh -File sync.ps1 "提交说明"
 
 $ErrorActionPreference = "Stop"
@@ -23,3 +23,7 @@ if ($LASTEXITCODE -eq 0) {
 } else {
     Write-Output "FAILED - check error above"
 }
+
+Write-Output ""
+Write-Output "按任意键退出..."
+$host.UI.RawUI.ReadKey("NoEcho,IncludeKeyDown") | Out-Null
