@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html lang="zh">
+<head>
+<meta charset="UTF-8">
+<title>❤️ 爱心</title>
+<style>
+  body {
+    margin: 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+    background: #1a1a2e;
+    overflow: hidden;
+  }
+  canvas {
+    display: block;
+  }
+</style>
+</head>
+<body>
+<canvas id="c"></canvas>
+<script>
+const canvas = document.getElementById('c');
+const ctx = canvas.getContext('2d');
+canvas.width = window.innerWidth;
+canvas.height = window.innerHeight;
+
+const cx = canvas.width / 2;
+const cy = canvas.height / 2;
+const scale = Math.min(canvas.width, canvas.height) / 50;
+
+// 爱心粒子系统
+const hearts = [];
+const particleCount = 200;
+
+for (let i = 0; i < particleCount; i++) {
+  const t = Math.random() * Math.PI * 2;
+  const speed = 0.002 + Math.random() * 0.008;
+  hearts.push({
+    t,
+    speed,
+    size: 2 + Math.random() * 4,
+    hue: 340 + Math.random() * 30,
+    alpha: 0.5 + Math.random() * 0.5,
+    wobble: Math.random() * Math.PI * 2,
+    wobbleSpeed: 0.02 + Math.random() * 0.03,
+  });
+}
+
+function drawHeart(t) {
+  const x = 16 * Math.pow(Math.sin(t), 3);
+  const y = -(13 * Math.cos(t) - 5 * Math.cos(2 * t) - 2 * Math.cos(3 * t) - Math.cos(4 * t));
+  return { x: cx + x * scale, y: cy + y * scale };
+}
+
+function animate() {
+  ctx.fillStyle = 'rgba(26, 26, 46, 0.15)';
+  ctx.fillRect(0, 0, canvas.width, canvas.height);
+
+  // 画轮廓
+  ctx.beginPath();
+  for (let i = 0; i <= 1000; i++) {
+    const t = (i / 1000) * Math.PI * 2;
+    const p = drawHeart(t);
+    if (i === 0) ctx.moveTo(p.x, p.y);
+    else ctx.lineTo(p.x, p.y);
+  }
+  ctx.closePath();
+  ctx.strokeStyle = 'rgba(255, 100, 120, 0.8)';
+  ctx.lineWidth = 2;
+  ctx.stroke();
+
+  // 画填充
+  ctx.beginPath();
+  for (let i = 0; i <= 1000; i++) {
+    const t = (i / 1000) * Math.PI * 2;
+    const p = drawHeart(t);
+    if (i === 0) ctx.moveTo(p.x, p.y);
+    else ctx.lineTo(p.x, p.y);
+  }
+  ctx.closePath();
+  const grad = ctx.createRadialGradient(cx, cy - 20 * scale, 0, cx, cy, 200 * scale);
+  grad.addColorStop(0, 'rgba(255, 120, 140, 0.3)');
+  grad.addColorStop(1, 'rgba(255, 60, 80, 0.1)');
+  ctx.fillStyle = grad;
+  ctx.fill();
+
+  // 画粒子
+  hearts.forEach(h => {
+    h.t += h.speed;
+    h.wobble += h.wobbleSpeed;
+    const p = drawHeart(h.t);
+    const wobbleX = Math.sin(h.wobble) * 8;
+    const wobbleY = Math.cos(h.wobble) * 8;
+
+    ctx.beginPath();
+    ctx.arc(p.x + wobbleX, p.y + wobbleY, h.size, 0, Math.PI * 2);
+    ctx.fillStyle = `hsla(${h.hue}, 90%, 65%, ${h.alpha})`;
+    ctx.fill();
+  });
+
+  requestAnimationFrame(animate);
+}
+
+animate();
+
+window.addEventListener('resize', () => {
+  canvas.width = window.innerWidth;
+  canvas.height = window.innerHeight;
+});
+</script>
+</body>
+</html>

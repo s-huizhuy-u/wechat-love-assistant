@@ -1,0 +1,53 @@
+ui-onboarding:
+  welcomeNoticeVersion: 2026-08-13.1
+ui-theme:
+  preference: system
+llm-pi-ai:
+  providers:
+    tju-llm:
+      displayName: 天津大学 · 快速
+      apiKeyEnv: TJU_LLM_API_KEY
+      api: openai-completions
+      baseURL: https://ai.tju.edu.cn/api/v3/
+      models:
+        - id: tju-llm
+          name: Qwen3.6-35B 快速（不思考）
+          contextWindow: 262144
+          maxTokens: 32768
+          input:
+            - text
+            - image
+          compat:
+            maxTokensField: max_tokens
+    tju-think:
+      displayName: 天津大学 · 深度思考
+      apiKeyEnv: TJU_LLM_API_KEY
+      api: openai-completions
+      baseURL: https://ai.tju.edu.cn/api/v3/
+      reasoning: medium
+      thinkingBudgets:
+        minimal: 1024
+        low: 4096
+        medium: 8192
+        high: 16384
+      models:
+        - id: qwen3.6-35b-a3b
+          name: Qwen3.6-35B 深度思考
+          contextWindow: 262144
+          maxTokens: 32768
+          input:
+            - text
+            - image
+          reasoningEfforts:
+            low: low
+            medium: medium
+            high: high
+          compat:
+            maxTokensField: max_tokens
+            thinkingFormat: qwen-chat-template
+            supportsThinkingTokenBudget: true
+            thinkingTokenBudgetField: thinking_token_budget
+agent-default-model:
+  provider: deepseek-official
+  model: deepseek-v4-flash
+  reasoningEffort: high

@@ -1,0 +1,55 @@
+# Python
+__pycache__/
+*.py[cod]
+*$py.class
+*.so
+.Python
+build/
+develop-eggs/
+dist/
+downloads/
+eggs/
+.eggs/
+lib/
+lib64/
+parts/
+sdist/
+var/
+wheels/
+*.egg-info/
+.installed.cfg
+*.egg
+
+# Virtual environments
+venv/
+env/
+ENV/
+
+# IDE
+.vscode/
+.idea/
+*.swp
+*.swo
+*~
+
+# OS
+.DS_Store
+Thumbs.db
+
+# Logs & debug
+*.log
+debug.log
+
+# Screenshots (keep prompts, discard images)
+screenshots/*.png
+screenshots/*.jpg
+screenshots/*.jpeg
+
+# Archives
+*.zip
+*.tar.gz
+*.rar
+
+# Config with secrets
+*.secret.yaml
+*.env

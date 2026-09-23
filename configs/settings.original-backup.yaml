@@ -1,0 +1,23 @@
+# 原始 settings.yaml 备份（优化前的学校模型配置）
+# 回滚方法：把下面内容整体覆盖回
+# C:\Users\水煮鱼d\AppData\Roaming\dsh-desktop\harness\settings.yaml
+
+ui-onboarding:
+  welcomeNoticeVersion: 2026-08-13.1
+ui-theme:
+  preference: system
+llm-pi-ai:
+  providers:
+    {
+      tju-llm:
+        {
+          apiKeyEnv: TJU_LLM_API_KEY,
+          api: openai-completions,
+          baseURL: https://ai.tju.edu.cn/api/v3/,
+          models: [ { id: tju-llm, name: tju-llm, input: [ text ] } ]
+        }
+    }
+agent-default-model:
+  provider: deepseek-official
+  model: deepseek-v4-flash
+  reasoningEffort: high
